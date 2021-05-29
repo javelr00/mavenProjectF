@@ -8,11 +8,18 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        Login
         <h:form>
-            <p:outputLabel value="Introduce una  categoria"/>
-            <p:inputText value="#{categoriaController.categoria.nombre}"/>
-            <p:commandButton value="Registrar" actionListener="#{categoriaController.registra()}"/> 
+            <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+            </p:messages>
+            <p:outputLabel value="Usuario"/>
+            <p:inputText value="#{loginController.usuario.user}"/>
+            <p:outputLabel value="Contraseña"/>
+            <p:inputText value="#{loginController.usuario.password}"/>
+            <p:commandButton value="Login" actionListener="#{categoriaController.registra()}" action="#{categoriaController.info}"/> 
+            <p:commandButton value="LoginBueno" action="#{loginController.login()}"/> 
+            <h:link outcome="altausuario" value="Pagina de alta de usuario"/>
         </h:form>
             
     </h:body>
