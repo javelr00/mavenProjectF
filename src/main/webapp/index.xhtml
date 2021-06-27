@@ -4,8 +4,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:outputStylesheet library="css" name="index.css"/>
     <h:head>
         <title>Facelet Title</title>
+        
     </h:head>
     <h:body>
         Login
@@ -17,10 +19,29 @@
             <p:inputText value="#{loginController.usuario.user}"/>
             <p:outputLabel value="Contraseña"/>
             <p:inputText value="#{loginController.usuario.password}"/>
-            <p:commandButton value="Login" actionListener="#{categoriaController.registra()}" action="#{categoriaController.info}"/> 
+            <p:commandButton value="Crea" actionListener="#{categoriaController.registra()}" action="#{categoriaController.info}"/> 
+            <p:commandButton value="Edita" actionListener="#{categoriaController.edita()}"/> 
             <p:commandButton value="LoginBueno" action="#{loginController.login()}"/> 
             <h:link outcome="altausuario" value="Pagina de alta de usuario"/>
+            <h:link outcome="privado/administrador/altaBajaModificacionRol" value="Tabla roles"/>
+            <p:inputText value="#{categoriaController.categoria.nombre}"/>
+            <p:inputText value="#{categoriaController.categoria.estado}"/>
+            
         </h:form>
+        <div class="card">
+            <p:tooltip/>
+
+            <h:form>
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+
+                <h5 class="p-mt-0">Severities</h5>
+                <p:commandButton value="Info" action="#{messagesView.info}" styleClass="p-mr-2" />
+                <p:commandButton value="Warn" action="#{messagesView.warn}" styleClass="p-mr-2 ui-button-warning" />
+                <p:commandButton value="Error" action="#{messagesView.error}" styleClass="ui-button-danger" />
+            </h:form>
+        </div>
             
     </h:body>
 </html>

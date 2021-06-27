@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewParam name="usuarioId" value="#{administradorController.selectedUsuario}"/>
+    </f:metadata>
+    <h:head>
+        <title>Modificar usuario</title>
+        
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                
+                <p class="p-m-0">You've been redirected to this bookmarkable page with button.
+                    ViewParameter you've passed is <strong>"#{administradorController.selectedUsuario}"</strong>
+                </p>
+                
+                <p:fieldset legend="Datos personales">
+                <h:panelGrid id="pgDatosPersonales" columns="3" styleClass="ui-noborder" cellpadding="3"> 
+                    <p:outputLabel value="Nombre:" for="@next"/>
+                    <p:inputText value="#{altaUsuario.persona.nombre}" required="true" requiredMessage="El nombre es obligatorio"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Sexo:" for="cboSexo"/>
+                    <p:selectOneButton value="#{altaUsuario.persona.sexo}" id="cboSexo" required="true" requiredMessage="El sexo debe ser introducido">
+                            <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                            <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                        </p:selectOneButton>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Fecha de nacimieno:" for="@next"/>
+                    <p:calendar value="#{altaUsuario.persona.fechaNacimiento}" locale="es" required="true" requiredMessage="Campo requerido"/>
+                    <p:message for="@previous" />
+                </h:panelGrid>
+                </p:fieldset>
+                
+            </h:form>
+        </div>
+        
+    </h:body>
+</html>

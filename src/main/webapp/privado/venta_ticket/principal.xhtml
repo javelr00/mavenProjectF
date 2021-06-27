@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <meta name="viewport" content="width-device-width, initial-scale=1.0"/>
+        
+    </h:head>
+    <div class="card">
+        <p:tooltip/>
+
+        <h:form>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+
+            <h5 class="p-mt-0">Severities</h5>
+            <p:commandButton value="Info" action="#{ventaEntrada.info}" styleClass="p-mr-2" />
+            <p:commandButton value="Actualizar tabla" styleClass="p-mr-2" >
+            </p:commandButton>
+        </h:form>
+    </div>
+    <h:body>
+        
+        <h:form id="frmPrincipal">
+            
+            <h1>Venta de entradas</h1>
+            <p:fieldset legend="Seleccione asientos">
+                
+                <h:panelGrid id="pgDatosPersonales" columns="10" styleClass="ui-noborder" cellpadding="10"> 
+                    <p:selectManyCheckbox id="grid" value="#{ventaEntrada.selectedButacas}" layout="grid" columns="10" styleClass="grid-checkbox">
+                        <p:ajax event="change" update="tbl"/>
+                        <f:selectItems value="#{ventaEntrada.listaButacas()}" var="butaca1" itemLabel="Fila: #{butaca1.fila} Butaca: #{butaca1.asiento}" itemValue="#{butaca1}" >
+                            
+                        </f:selectItems>
+                    </p:selectManyCheckbox>
+                    <p:message for="@previous" />
+                </h:panelGrid>
+                <p:commandButton value="Generar entrada" action="#{ventaEntrada.registrarVenta()}" update="frmPrincipal">
+                    <p:dataExporter type="pdf" target="tbl" fileName="products.pdf" options="#{dataExporterView.pdfOpt}"/>
+                </p:commandButton>
+                <p:commandButton value="Hola" actionListener="#{categoriaController.registra()}" action="#{categoriaController.info}"/>
+            </p:fieldset> 
+            <div class="card">
+        <h:panelGrid columns="3">
+            
+            <p:inputText id="counter" value="#{listenerView.text}">
+                <p:ajax event="change" update="out"/>
+                <p:ajax event="change" update="tbl"/>
+            </p:inputText>
+            
+        </h:panelGrid>
+                <p:dataTable id="tbl" var="butaca" value="#{ventaEntrada.listaButacasActual()}"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     paginator="true" rows="10" styleClass="p-mt-2">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Asiento"/>
+                    </f:facet>
+                    <h:outputText value="#{butaca.asiento}"/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fila"/>
+                    </f:facet>
+                    <h:outputText value="#{butaca.fila}"/>
+                </p:column>
+            </p:dataTable>
+        
+        <h:panelGrid columns="3">
+            <h:outputText id="out" value="#{listenerView.text}"/>
+            
+        </h:panelGrid>
+        </div>
+    </h:form>
+
+    
+    </h:body>
+</html>
+

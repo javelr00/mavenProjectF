@@ -5,6 +5,7 @@
  */
 package com.unileon.modelo;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="menus")
 
-public class Menus {
+public class Menus implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +43,8 @@ public class Menus {
     @ManyToOne
     private Roles idRol;
     
-    @JoinColumn(name="IdMenu_Menu")
-    @ManyToOne
-    private int idMenu_Menu;
+    /*@Column(name="IdMenu_Menu")
+    private int idMenu_Menu;*/
     
     @Column(name="url")
     private String url;
@@ -96,6 +96,14 @@ public class Menus {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    /*public int getIdMenu_Menu() {
+        return idMenu_Menu;
+    }
+
+    public void setIdMenu_Menu(int idMenu_Menu) {
+        this.idMenu_Menu = idMenu_Menu;
+    }*/
 
     @Override
     public int hashCode() {

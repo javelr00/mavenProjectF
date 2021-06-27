@@ -48,15 +48,16 @@ public class LoginController implements Serializable {
         System.out.println(usuario.getUser());
         for(int i=0; i<usuarioEJB.count(); i++){
             if(usuario.getUser().equals(todos.get(i).getUser())){
+                addMessage("HOLA");
                 System.out.println("Usuario encontrado");//TODO: mensaje error el usuario no esta en la bbdd
                 String contrCorrect = todos.get(i).getPassword();
                 if(usuario.getPassword().equals(contrCorrect)){
                     //Entra en el sistema
                     switch(todos.get(i).getIdRol().getIdRol()){
                         case 1:
-                            return "/privado/profesor/principal.xhtml?faces-redirect=true";
+                            return "/privado/venta_ticket/principal.xhtml?faces-redirect=true";
                         case 2:
-                            return "/privado/alumno/principal.xhtml?faces-redirect=true";
+                            return "/privado/venta_snacks/principal.xhtml?faces-redirect=true";
                         case 3:
                             return "/privado/administrador/principal.xhtml?faces-redirect=true";
                         
@@ -84,4 +85,8 @@ public class LoginController implements Serializable {
         this.usuario = usuario;
     }
     
+    public void addMessage(String summary) {
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 }

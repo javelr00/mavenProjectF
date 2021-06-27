@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Nuevo snack</title>
+        
+    </h:head>
+    
+    <h:body>
+        <div class="card">
+            <h:form>
+                
+                <p:fieldset legend="Información del snack">
+                <h:panelGrid id="pgSnack" columns="2" styleClass="ui-noborder" cellpadding="3"> 
+                    <p:outputLabel value="Nombre:" for="@next"/>
+                    <p:inputText value="#{snackController.snack.nombre}" required="true" requiredMessage="El nombre es obligatorio"/>
+                    
+                    <p:outputLabel value="Precio(€):" for="@next"/>
+                    <p:inputText value="#{snackController.snack.precio}" required="true" requiredMessage="Debe introducir la duración"/>
+                    
+                    <p:outputLabel value="Cantidad disponible" for="@next"/>
+                    <p:inputText value="#{snackController.snack.cantidad_disp}" required="false"/>
+                    
+                    <p:outputLabel value="Tamaño" for="@next"/>
+                    <p:inputText value="#{snackController.snack.tam}" required="false"/>
+                    
+                    <p:commandButton value="Guardar cambios" action="#{snackController.registra()}"/>
+                </h:panelGrid>
+                </p:fieldset>
+                
+            </h:form>
+        </div>
+        
+    </h:body>
+</html>
