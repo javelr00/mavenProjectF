@@ -47,14 +47,14 @@
             <div class="card">
         <h:panelGrid columns="3">
             
-            <p:inputText id="counter" value="#{listenerView.text}">
+            <!--<p:inputText id="counter" value="#{listenerView.text}">
                 <p:ajax event="change" update="out"/>
                 <p:ajax event="change" update="tbl"/>
-            </p:inputText>
+            </p:inputText>-->
             
         </h:panelGrid>
                 <p:dataTable id="tbl" var="butaca" value="#{ventaEntrada.listaButacasActual()}"
-                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink}"
                      paginator="true" rows="10" styleClass="p-mt-2">
                 <p:column>
                     <f:facet name="header">

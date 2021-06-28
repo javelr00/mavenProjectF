@@ -104,4 +104,6 @@ public class VentaEntrada implements Serializable{
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Has pulsado info "+selectedButacas));
     }
+        
+        
 }

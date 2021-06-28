@@ -9,34 +9,90 @@ import com.unileon.EJB.ButacasFacadeLocal;
 import com.unileon.EJB.SnacksFacadeLocal;
 import com.unileon.modelo.Snacks;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 @Named
 @ViewScoped
 public class VentaSnack implements Serializable{
+    
+    //acceso a los objetos
+    //HAY QUE INICIALIZAR LOS LIST EN EL INIT O DONDE SEA!!!!!!!!
+    private Snacks snack;
+    private List<Snacks> selectedSnacks;
+    private List<Snacks> snacksTbl= new ArrayList<>();
+    private String selectedSnack;
+    
+    
+    @EJB
+    private SnacksFacadeLocal snackEJB;
+    
+    @PostConstruct
+    void init(){
+        snack = new Snacks();
+    }
 
-	//acceso a los objetos
-	private Snacks snack;
+    public String getSelectedSnack() {
+        return selectedSnack;
+    }
 
-	//la interfaz, para acceder realmente al la BD y crear el usuario
-	@EJB
-	private SnacksFacadeLocal snackEJB;
+    public void setSelectedSnack(String selectedSnack) {
+        this.selectedSnack = selectedSnack;
+    }
+        
+    public List<Snacks> getSelectedSnacks() {
+        return selectedSnacks;
+    }
 
+    public void setSelectedSnacks(List<Snacks> selectedSnacks) {
+        this.selectedSnacks = selectedSnacks;
+    }
 
-	@PostConstruct
-	void init(){
-		snack = new Snacks();
-	}
+    public SnacksFacadeLocal getSnackEJB() {
+        return snackEJB;
+    }
 
-        public Snacks getSnack(){
-            return this.snack;
+    public void setSnackEJB(SnacksFacadeLocal snackEJB) {
+        this.snackEJB = snackEJB;
+    }
+        
+    public Snacks getSnack(){
+        return this.snack;
+    }
+        
+    public List<Snacks> listaSnacks(){
+        return snackEJB.findAll();
+    }
+        
+        /*public List<Snacks> listaSnacksActual(){
+            return selectedSnacks;
         }
         
-        public List<Snacks> listaSnacks(){
-            return snackEJB.findAll();
-        }
+        public void anadirCesta(){
+            selectedSnacks.add(snack);
+        }*/
+        
+    /*public void displaySnack() {
+        String m = selectedSnack;
+        FacesMessage msg;
+        msg = new FacesMessage("Selected", m);
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }*/
+    
+    public void anadeALista(){
+        Snacks snElegido;
+        snElegido = snackEJB.find(Integer.parseInt(selectedSnack));
+        snacksTbl.add(snElegido);
+    }
+    
+    public List<Snacks> listaSnacksActual(){
+            return snacksTbl;
+    }
 }

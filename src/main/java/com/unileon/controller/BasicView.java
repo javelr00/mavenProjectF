@@ -158,11 +158,8 @@ public class BasicView implements Serializable {
 
     public void displayLocation() {
         FacesMessage msg;
-        if(city != null && country != null)
-            msg = new FacesMessage("Selected", city + " of " + country);
-        else
-            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid", "City is not selected.");
-
+        msg = new FacesMessage("Selected", country);
+        
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }
