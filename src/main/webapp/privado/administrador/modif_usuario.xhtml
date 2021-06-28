@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
@@ -13,21 +8,33 @@ and open the template in the editor.
         <f:viewParam name="usuarioId" value="#{administradorController.selectedUsuario}"/>
     </f:metadata>
     <h:head>
-        <title>Modificar usuario</title>
-        
+        <title>Facelet Title</title>
+        <meta name="viewport" content="width-device-width, initial-scale=1.0"/>
     </h:head>
-    <h:body>
-        <div class="card">
-            <h:form>
-                
-                <p class="p-m-0">You've been redirected to this bookmarkable page with button.
-                    ViewParameter you've passed is <strong>"#{administradorController.selectedUsuario}"</strong>
-                </p>
-                
-                <p:fieldset legend="Datos personales">
+    
+    <body>
+        <h:form id="frmPrincipal">
+            <h1>Formulario para el alta de usuarios</h1>
+            <p:fieldset legend="Datos personales">
                 <h:panelGrid id="pgDatosPersonales" columns="3" styleClass="ui-noborder" cellpadding="3"> 
                     <p:outputLabel value="Nombre:" for="@next"/>
+                    <p:outputLabel value="#{administradorController.buscaUsuario().user}"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Nombre nuevo:" for="@next"/>
                     <p:inputText value="#{altaUsuario.persona.nombre}" required="true" requiredMessage="El nombre es obligatorio"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Primer apellido:" for="@next"/>
+                    <p:outputLabel value="#{administradorController.buscaPersona().nombre}"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Primer apellido nuevo:" for="@next"/>
+                    <p:inputText value="#{altaUsuario.persona.apellido1}" required="true" requiredMessage="El nombre es obligatorio"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Segundo apellido:" for="@next"/>
+                    <p:inputText value="#{altaUsuario.persona.apellido2}" required="true" requiredMessage="El nombre es obligatorio"/>
                     <p:message for="@previous" />
                     
                     <p:outputLabel value="Sexo:" for="cboSexo"/>
@@ -41,10 +48,43 @@ and open the template in the editor.
                     <p:calendar value="#{altaUsuario.persona.fechaNacimiento}" locale="es" required="true" requiredMessage="Campo requerido"/>
                     <p:message for="@previous" />
                 </h:panelGrid>
-                </p:fieldset>
+            </p:fieldset>
+            
+            <p:fieldset legend="Datos de acceso">
                 
-            </h:form>
-        </div>
-        
-    </h:body>
+                <h:panelGrid id="pgUsuario" columns="2" styleClass="ui-noborder" cellpadding="3">
+                
+                    <p:outputLabel for="@next" value="Seleccione rol de usuario"/>
+                    <p:selectOneMenu id="menuTipoUsuario" value="#{altaUsuario.roln}" style="width:150px"
+                                     required="true" requiredMessage="Ha de seleccionar el tipo de usuario">
+                        <f:selectItem itemLabel="ticket" itemValue="1" />
+                        <f:selectItem itemLabel="snack" itemValue="2" />
+                        <f:selectItem itemLabel="admin" itemValue="3" />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="Nombre de usuario:" for="@next"/>
+                    <p:outputLabel value="#{administradorController.buscaUsuario().user}"/>
+                    
+                    <p:outputLabel value="Nombre de usuario nuevo:" for="@next"/>
+                    <p:inputText value="#{altaUsuario.usuario.user}" required="true" requiredMessage="El nombre de usuario es obligatorio"/>
+                    
+                    <p:outputLabel value="Contraseña nueva:" for="@next"/>
+                    <p:password value="#{altaUsuario.usuario.password}" id="password1" required="true"
+                                    feedback="true" match="password2" promptLabel="Introduzca contraseña"
+                                    strongLabel="Clave muy segura" weakLabel="Clave insegura"
+                                    goodLabel="Clave segura" requiredMessage="Contraseña obligatoria" placeholder="Introduzca un"/>
+                        
+                        
+                        <p:outputLabel value="Repita contraseña:" for="@next"/>
+                        <p:password id="password2" required="true" requiredMessage="Obligatorio introducir contraseña"/>
+                        
+                        
+                </h:panelGrid>    
+                
+                <p:commandButton value="Guardar nuevo usuario" action="#{altaUsuario.insertarUsuario()}" update="frmPrincipal"/>
+                                    
+            </p:fieldset>
+        </h:form>
+    </body>
 </html>
+

@@ -6,6 +6,7 @@
 package com.unileon.controller;
 
 import com.unileon.EJB.PeliculasFacadeLocal;
+import com.unileon.EJB.PersonasFacadeLocal;
 import com.unileon.EJB.RolesFacadeLocal;
 import com.unileon.EJB.SnacksFacadeLocal;
 import com.unileon.EJB.UsuariosFacadeLocal;
@@ -43,9 +44,9 @@ public class AdministradorController implements Serializable{
         private Peliculas pelicula;
         @Inject
         private Peliculas chpelicula;
-        private String selectedUsuario;
         private int selectedSnack;
         private int selectedPelicula;
+        private int selectedUsuario;
         
 	@EJB
 	private UsuariosFacadeLocal usuarioEJB;
@@ -58,6 +59,9 @@ public class AdministradorController implements Serializable{
         
         @EJB
 	private PeliculasFacadeLocal peliculaEJB;
+        
+        @EJB
+	private PersonasFacadeLocal personaEJB;
         
         @PostConstruct
 	void init(){
@@ -125,11 +129,11 @@ public class AdministradorController implements Serializable{
         return pelicula;
     }
     
-    public String getSelectedUsuario() {
+    public int getSelectedUsuario() {
         return selectedUsuario;
     }
 
-    public void setSelectedUsuario(String selectedUsuario) {
+    public void setSelectedUsuario(int selectedUsuario) {
         this.selectedUsuario = selectedUsuario;
     }
     
@@ -278,7 +282,7 @@ public class AdministradorController implements Serializable{
         return peliculaEJB.findAll();
     }
         
-    public String usuarioActual(){
+    public int usuarioActual(){
         return selectedUsuario;
     }
     
@@ -298,6 +302,17 @@ public class AdministradorController implements Serializable{
     public Snacks buscaSnack(){
         snack=snackEJB.find(selectedSnack);
         return snackEJB.find(selectedSnack);
+    }
+    
+    public Usuarios buscaUsuario(){
+        usuario=usuarioEJB.find(selectedUsuario);
+        return usuarioEJB.find(selectedUsuario);
+    }
+    
+    public Personas buscaPersona(){
+        usuario=usuarioEJB.find(selectedUsuario);
+        persona=personaEJB.find(usuario.getIdPersona().getIdPersona());
+        return personaEJB.find(persona.getIdPersona());
     }
     
     public void editaPelicula(){

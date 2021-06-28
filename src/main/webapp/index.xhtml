@@ -16,7 +16,7 @@
             <p:outputLabel value="Usuario "/>
             <p:inputText value="#{loginController.usuario.user}"/>
             <p:outputLabel value=" Contraseña "/>
-            <p:inputText value="#{loginController.usuario.password}" /> 
+            <p:password id="toggle" value="#{loginController.usuario.password}"/> 
             <p:commandButton value="Login" action="#{loginController.login()}" /> 
             <!--<h:link outcome="altausuario" value="Pagina de alta de usuario"/>
             <h:link outcome="privado/administrador/altaBajaModificacionRol" value="Tabla roles"/>-->

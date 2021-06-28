@@ -26,7 +26,7 @@ and open the template in the editor.
                     <h:panelGrid columns="2" cellpadding="7" styleClass="p-mb-3">
                         <p:selectOneMenu id="users" value="#{administradorController.selectedUsuario}" style="width:150px" required="true" requiredMessage="Selecciona usuario">
                             <p:ajax update="par"/>
-                            <f:selectItems value="#{administradorController.listaUsuarios()}" var="usuario" itemLabel="#{usuario.user}" itemValue="#{usuario.user}"/>
+                            <f:selectItems value="#{administradorController.listaUsuarios()}" var="usuario" itemLabel="#{usuario.user}" itemValue="#{usuario.idUsuario}"/>
                     </p:selectOneMenu>
                     <p:link id="par" outcome="modif_usuario" value="Modificar usuario">
                         <f:param  name="usuarioId" value="#{administradorController.usuarioActual()}"/>
