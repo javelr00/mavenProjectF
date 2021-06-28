@@ -9,48 +9,39 @@
         <meta name="viewport" content="width-device-width, initial-scale=1.0"/>
         
     </h:head>
-    <div class="card">
-        <p:tooltip/>
-
-        <h:form>
-            <p:messages id="messages" showDetail="true" closable="true">
-                <p:autoUpdate/>
-            </p:messages>
-
-            <h5 class="p-mt-0">Severities</h5>
-            <p:commandButton value="Info" action="#{ventaEntrada.info}" styleClass="p-mr-2" />
-            <p:commandButton value="Actualizar tabla" styleClass="p-mr-2" >
-            </p:commandButton>
-        </h:form>
-    </div>
     <h:body>
         
+        <h1>Venta de entradas</h1>
+        <h:form id="frm1">
+            <p:fieldset legend="Seleccione sala">
+                <p:selectOneMenu id="somenu" var="salaS" value="#{ventaEntrada.selectedSala}" effect="fold" editable="false">
+                    
+                    <f:selectItems value="#{ventaEntrada.listaSalas()}" var="sala" itemLabel="Sala #{sala.id_sala}-#{sala.id_pelicula.nombre}" itemValue="#{sala.id_sala}"/>
+                </p:selectOneMenu>
+            </p:fieldset>
+        </h:form>
         <h:form id="frmPrincipal">
             
-            <h1>Venta de entradas</h1>
+            
+            
             <p:fieldset legend="Seleccione asientos">
                 
                 <h:panelGrid id="pgDatosPersonales" columns="10" styleClass="ui-noborder" cellpadding="10"> 
                     <p:selectManyCheckbox id="grid" value="#{ventaEntrada.selectedButacas}" layout="grid" columns="10" styleClass="grid-checkbox">
                         <p:ajax event="change" update="tbl"/>
-                        <f:selectItems value="#{ventaEntrada.listaButacas()}" var="butaca1" itemLabel="Fila: #{butaca1.fila} Butaca: #{butaca1.asiento}" itemValue="#{butaca1}" >
+                        <f:selectItems value="#{ventaEntrada.listaButacas()}" var="butaca1" itemLabel="Fila: #{butaca1.fila} Butaca: #{butaca1.asiento}" itemDisabled="#{butaca1.ocupado}" itemValue="#{butaca1}" >
                             
                         </f:selectItems>
                     </p:selectManyCheckbox>
                     <p:message for="@previous" />
                 </h:panelGrid>
-                <p:commandButton value="Generar entrada" action="#{ventaEntrada.registrarVenta()}" update="frmPrincipal">
+                <p:commandButton value="Generar entrada" action="#{ventaEntrada.registrarVenta()}" update="pgDatosPersonales">
                     <p:dataExporter type="pdf" target="tbl" fileName="products.pdf" options="#{dataExporterView.pdfOpt}"/>
                 </p:commandButton>
-                <p:commandButton value="Hola" actionListener="#{categoriaController.registra()}" action="#{categoriaController.info}"/>
+               
             </p:fieldset> 
             <div class="card">
         <h:panelGrid columns="3">
-            
-            <!--<p:inputText id="counter" value="#{listenerView.text}">
-                <p:ajax event="change" update="out"/>
-                <p:ajax event="change" update="tbl"/>
-            </p:inputText>-->
             
         </h:panelGrid>
                 <p:dataTable id="tbl" var="butaca" value="#{ventaEntrada.listaButacasActual()}"
@@ -69,6 +60,27 @@
                     </f:facet>
                     <h:outputText value="#{butaca.fila}"/>
                 </p:column>
+                    
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Sala"/>
+                    </f:facet>
+                    <h:outputText value="#{butaca.id_sala.id_sala}"/>
+                </p:column>
+                    
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Pelicula"/>
+                    </f:facet>
+                    <h:outputText value="#{butaca.id_sala.id_pelicula.nombre}"/>
+                </p:column>
+                    
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Codigo"/>
+                    </f:facet>
+                    <p:barcode value="0123456789" type="codabar"/>
+                </p:column>
             </p:dataTable>
         
         <h:panelGrid columns="3">
@@ -81,4 +93,3 @@
     
     </h:body>
 </html>
-

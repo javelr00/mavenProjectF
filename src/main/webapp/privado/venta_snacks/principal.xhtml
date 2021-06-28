@@ -10,16 +10,15 @@
     </h:head>
     
     <h:body>
-       
+       <h1>Venta de snacks</h1>
         <h:form>
-        <h5 class="p-mt-0">Advanced</h5>
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true"/>
 
         <h:panelGrid columns="2" cellpadding="7" styleClass="p-mb-3">
-            <p:outputLabel for="country" value="Country"/>
+            <p:outputLabel for="country" value="Producto"/>
             <p:selectOneMenu id="country" value="#{ventaSnack.selectedSnack}"  style="width:12rem">
                 
-                <f:selectItem itemLabel="Select Country" itemValue="" noSelectionOption="true"/>
+                <f:selectItem itemLabel="Seleccione producto" itemValue="" noSelectionOption="true"/>
                 <f:selectItems value="#{ventaSnack.listaSnacks()}" var="snack" itemLabel="#{snack.nombre}" itemValue="#{snack.idsnacks}"/>
             </p:selectOneMenu>
 
@@ -38,7 +37,14 @@
                     </p:column>
                 
                 <p:column headerText="Precio">
-                    <h:outputText value="#{snackT.precio}" />
+                    <h:outputText value="#{snackT.precio} €" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Codigo"/>
+                    </f:facet>
+                    <p:barcode value="0123456789" type="codabar"/>
                 </p:column>
 
                 </p:dataTable>

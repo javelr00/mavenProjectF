@@ -40,7 +40,26 @@ public class Butacas {
     @JoinColumn(name="id_sala")
     @OneToOne(cascade=CascadeType.PERSIST)
     private Salas id_sala;
+    
+    @Column(name="ocupado")
+    private boolean ocupado;
 
+    public Salas getId_sala() {
+        return id_sala;
+    }
+
+    public void setId_sala(Salas id_sala) {
+        this.id_sala = id_sala;
+    }
+
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }
+    
     public int getIdbutacas() {
         return idbutacas;
     }

@@ -5,9 +5,10 @@
  */
 package com.unileon.controller;
 
-import static com.sun.javafx.logging.PulseLogger.addMessage;
 import com.unileon.EJB.ButacasFacadeLocal;
+import com.unileon.EJB.SalasFacadeLocal;
 import com.unileon.modelo.Butacas;
+import com.unileon.modelo.Salas;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -25,7 +26,44 @@ public class VentaEntrada implements Serializable{
 	private Butacas butaca;
         private List<Butacas> selectedButacas;
         private String fila;
+        private int salaId;
+        private List<Salas> salas;
+        private int selectedSala;
 
+    public int getSelectedSala() {
+        return selectedSala;
+    }
+
+    public void setSelectedSala(int selectedSala) {
+        this.selectedSala = selectedSala;
+    }
+
+    
+
+    public SalasFacadeLocal getSalaEJB() {
+        return salaEJB;
+    }
+
+    public void setSalaEJB(SalasFacadeLocal salaEJB) {
+        this.salaEJB = salaEJB;
+    }
+
+    public List<Salas> getSalas() {
+        return salas;
+    }
+
+    public void setSalas(List<Salas> salas) {
+        this.salas = salas;
+    }
+    
+    public int getSalaId() {
+        return salaId;
+    }
+
+    public void setSalaId(int salaId) {
+        this.salaId = salaId;
+    }
+        
     public String getFila() {
         return fila;
     }
@@ -53,6 +91,9 @@ public class VentaEntrada implements Serializable{
 	//la interfaz, para acceder realmente al la BD y crear el usuario
 	@EJB
 	private ButacasFacadeLocal butacaEJB;
+        
+        @EJB
+	private SalasFacadeLocal salaEJB;
 
 
 	@PostConstruct
@@ -67,7 +108,7 @@ public class VentaEntrada implements Serializable{
 	public void registrarVenta(){
 		//necesito el id del tipo de rol
 		//En persona creo una Persona, pero en rol no creo un Rol
-		try{
+		/*try{
 			//este buscar necesita modificar la interfaz del EJB
 			butaca.setAsiento(butaca.getAsiento());
                         butaca.setFila(butaca.getFila());
@@ -75,7 +116,11 @@ public class VentaEntrada implements Serializable{
 			butacaEJB.create(butaca);
 		}catch(Exception e){
 			System.out.println("Error al registrar la butaca" + e.getMessage());
-		}
+		}*/
+            for(int i=0; i<selectedButacas.size(); i++){
+                selectedButacas.get(i).setOcupado(true);
+                butacaEJB.edit(selectedButacas.get(i));
+            }
 	}
         
         public List<Butacas> listaButacas(){
@@ -83,6 +128,10 @@ public class VentaEntrada implements Serializable{
         }
         public List<Butacas> listaButacasActual(){
             return selectedButacas;
+        }
+        
+        public List<Salas> listaSalas(){
+            return salaEJB.findAll();
         }
         
         public void handleKeyEvent() {
