@@ -348,9 +348,25 @@ public class AdministradorController implements Serializable{
         } 
         return "/privado/administrador/datos_cambiados.xhtml?faces-redirect=true";
     }
+    
+    public boolean compruebaUsuario(Usuarios usuario){
+        List<Usuarios> listaCompl = usuarioEJB.findAll();
+        
+        if(listaCompl == null){
+            return false;//Si no hay usuarios en la BBDD
+        }
+        
+        for(int i=0; i<listaCompl.size(); i++){
+            if(listaCompl.get(i).getUser().equals(usuario.getUser())){
+                return true;//Ya existe un usuario con ese nombre
+            }
+        }
+        return false;//El nombre está libre
+    }
+    
     /*public void displayUsuario() {
         FacesMessage msg;
-        msg = new FacesMessage("Selected ", selectedUsuario);
+        msg = new FacesMessage("Selcted ", selectedUsuario);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }*/
     

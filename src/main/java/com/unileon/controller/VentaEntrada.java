@@ -105,22 +105,15 @@ public class VentaEntrada implements Serializable{
             return this.butaca;
         }
         
-	public void registrarVenta(){
-		//necesito el id del tipo de rol
-		//En persona creo una Persona, pero en rol no creo un Rol
-		/*try{
-			//este buscar necesita modificar la interfaz del EJB
-			butaca.setAsiento(butaca.getAsiento());
-                        butaca.setFila(butaca.getFila());
-                        
-			butacaEJB.create(butaca);
-		}catch(Exception e){
-			System.out.println("Error al registrar la butaca" + e.getMessage());
-		}*/
+	public boolean registrarVenta(){
+            if(selectedButacas==null){
+                return false;
+            }
             for(int i=0; i<selectedButacas.size(); i++){
                 selectedButacas.get(i).setOcupado(true);
                 butacaEJB.edit(selectedButacas.get(i));
             }
+            return true;
 	}
         
         public List<Butacas> listaButacas(){
