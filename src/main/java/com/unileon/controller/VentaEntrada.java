@@ -106,7 +106,7 @@ public class VentaEntrada implements Serializable{
         }
         
 	public boolean registrarVenta(){
-            if(selectedButacas==null){
+            if(selectedButacas.size()==0){
                 return false;
             }
             for(int i=0; i<selectedButacas.size(); i++){

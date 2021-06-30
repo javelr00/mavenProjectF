@@ -20,9 +20,6 @@ and open the template in the editor.
         <div class="card">
             <h:form>
                 
-                <p class="p-m-0">You've been redirected to this bookmarkable page with button.
-                    ViewParameter you've passed is <strong>"#{administradorController.selectedSnack}"</strong>
-                </p>
                 
                 <p:fieldset legend="Datos de la película">
                 <h:panelGrid id="pgDatosPersonales" columns="2" styleClass="ui-noborder" cellpadding="3">
@@ -37,15 +34,9 @@ and open the template in the editor.
                     
                     <p:outputLabel value="Precio nuevo:" for="@next"/>
                     <p:inputText value="#{administradorController.chsnack.precio}" required="false"/>
-                    
-                    <!--<p:outputLabel value="Director/a:" for="@next"/>
-                    <p:outputLabel value="#{administradorController.buscaPeliculas().director}"/>
-                    
-                    <p:outputLabel value="Director/a nuevo/a:" for="@next"/>
-                    <p:inputText value="#{administradorController.chpelicula.director}" required="false"/>-->
-                    
-                    <p:commandButton value="Guardar cambios" action="#{administradorController.editachPelicula()}"/>
-                    <p:commandButton value="Eliminar película" action="#{administradorController.editachPelicula()}" styleClass="ui-button-danger"/>
+                
+                    <p:commandButton value="Guardar cambios" action="#{administradorController.editachSnack()}"/>
+                    <p:commandButton value="Eliminar snack" styleClass="ui-button-danger" action="#{administradorController.eliminachSnack()}"/>
                 </h:panelGrid>
                 </p:fieldset>
                 

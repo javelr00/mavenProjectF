@@ -337,12 +337,32 @@ public class AdministradorController implements Serializable{
         return "/privado/administrador/datos_cambiados.xhtml?faces-redirect=true";
     }
     
+    public String eliminachPelicula(){
+        Peliculas aux = peliculaEJB.find(selectedPelicula);
+        try{
+            peliculaEJB.remove(aux);
+        }catch(Exception e){
+            
+        } 
+        return "/privado/administrador/datos_cambiados.xhtml?faces-redirect=true";
+    }
+    
     public String editachSnack(){
         Snacks aux = snackEJB.find(selectedSnack);
         aux.setNombre(chsnack.getNombre());
         aux.setPrecio(chsnack.getPrecio());
         try{
             snackEJB.edit(aux);
+        }catch(Exception e){
+            
+        } 
+        return "/privado/administrador/datos_cambiados.xhtml?faces-redirect=true";
+    }
+    
+    public String eliminachSnack(){
+        Snacks aux = snackEJB.find(selectedSnack);
+        try{
+            snackEJB.remove(aux);
         }catch(Exception e){
             
         } 

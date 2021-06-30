@@ -8,44 +8,56 @@
         <f:viewParam name="usuarioId" value="#{administradorController.selectedUsuario}"/>
     </f:metadata>
     <h:head>
-        <title>Facelet Title</title>
+        <title>Editar usuario</title>
         <meta name="viewport" content="width-device-width, initial-scale=1.0"/>
     </h:head>
     
     <body>
         <h:form id="frmPrincipal">
-            <h1>Formulario para el alta de usuarios</h1>
+           
             <p:fieldset legend="Datos personales">
                 <h:panelGrid id="pgDatosPersonales" columns="3" styleClass="ui-noborder" cellpadding="3"> 
                     <p:outputLabel value="Nombre:" for="@next"/>
-                    <p:outputLabel value="#{administradorController.buscaUsuario().user}"/>
-                    <p:message for="@previous" />
-                    
-                    <p:outputLabel value="Nombre nuevo:" for="@next"/>
-                    <p:inputText value="#{altaUsuario.persona.nombre}" required="true" requiredMessage="El nombre es obligatorio"/>
-                    <p:message for="@previous" />
-                    
-                    <p:outputLabel value="Primer apellido:" for="@next"/>
                     <p:outputLabel value="#{administradorController.buscaPersona().nombre}"/>
                     <p:message for="@previous" />
                     
-                    <p:outputLabel value="Primer apellido nuevo:" for="@next"/>
-                    <p:inputText value="#{altaUsuario.persona.apellido1}" required="true" requiredMessage="El nombre es obligatorio"/>
+                    <p:outputLabel value="Nuevo nombre:" for="@next"/>
+                    <p:inputText value="#{altaUsuario.persona.nombre}" required="false"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Primer apellido:" for="@next"/>
+                    <p:outputLabel value="#{administradorController.buscaPersona().apellido1}"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Nuevo primer apellido:" for="@next"/>
+                    <p:inputText value="#{altaUsuario.persona.apellido1}" required="false"/>
                     <p:message for="@previous" />
                     
                     <p:outputLabel value="Segundo apellido:" for="@next"/>
-                    <p:inputText value="#{altaUsuario.persona.apellido2}" required="true" requiredMessage="El nombre es obligatorio"/>
+                    <p:outputLabel value="#{administradorController.buscaPersona().apellido2}"/>
                     <p:message for="@previous" />
                     
-                    <p:outputLabel value="Sexo:" for="cboSexo"/>
-                    <p:selectOneButton value="#{altaUsuario.persona.sexo}" id="cboSexo" required="true" requiredMessage="El sexo debe ser introducido">
+                    <p:outputLabel value="Nuevo segundo apellido:" for="@next"/>
+                    <p:inputText value="#{altaUsuario.persona.apellido2}" required="false"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Sexo:" for="@next"/>
+                    <p:outputLabel value="#{administradorController.buscaPersona().sexo}"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Nuevo sexo:" for="cboSexo"/>
+                    <p:selectOneButton value="#{altaUsuario.persona.sexo}" id="cboSexo" required="false">
                             <f:selectItem itemLabel="Masculino" itemValue="M"/>
                             <f:selectItem itemLabel="Femenino" itemValue="F"/>
                         </p:selectOneButton>
                     <p:message for="@previous" />
                     
-                    <p:outputLabel value="Fecha de nacimieno:" for="@next"/>
-                    <p:calendar value="#{altaUsuario.persona.fechaNacimiento}" locale="es" required="true" requiredMessage="Campo requerido"/>
+                    <p:outputLabel value="Fecha de nacimiento:" for="@next"/>
+                    <p:outputLabel value="#{administradorController.buscaPersona().fechaNacimiento}"/>
+                    <p:message for="@previous" />
+                    
+                    <p:outputLabel value="Nueva fecha de nacimiento:" for="@next"/>
+                    <p:calendar value="#{altaUsuario.persona.fechaNacimiento}" locale="es"/>
                     <p:message for="@previous" />
                 </h:panelGrid>
             </p:fieldset>
@@ -53,10 +65,14 @@
             <p:fieldset legend="Datos de acceso">
                 
                 <h:panelGrid id="pgUsuario" columns="2" styleClass="ui-noborder" cellpadding="3">
+                    
+                    <p:outputLabel value="Rol de usuario:" for="@next"/>
+                    <p:outputLabel value="#{administradorController.buscaUsuario().idRol.descripcion}"/>
+                    
                 
-                    <p:outputLabel for="@next" value="Seleccione rol de usuario"/>
+                    <p:outputLabel for="@next" value="Nuevo rol de usuario"/>
                     <p:selectOneMenu id="menuTipoUsuario" value="#{altaUsuario.roln}" style="width:150px"
-                                     required="true" requiredMessage="Ha de seleccionar el tipo de usuario">
+                                     required="false">
                         <f:selectItem itemLabel="ticket" itemValue="1" />
                         <f:selectItem itemLabel="snack" itemValue="2" />
                         <f:selectItem itemLabel="admin" itemValue="3" />
@@ -65,18 +81,18 @@
                     <p:outputLabel value="Nombre de usuario:" for="@next"/>
                     <p:outputLabel value="#{administradorController.buscaUsuario().user}"/>
                     
-                    <p:outputLabel value="Nombre de usuario nuevo:" for="@next"/>
-                    <p:inputText value="#{altaUsuario.usuario.user}" required="true" requiredMessage="El nombre de usuario es obligatorio"/>
+                    <p:outputLabel value="Nuevo nombre de usuario nuevo:" for="@next"/>
+                    <p:inputText value="#{altaUsuario.usuario.user}" required="false"/>
                     
                     <p:outputLabel value="Contraseña nueva:" for="@next"/>
-                    <p:password value="#{altaUsuario.usuario.password}" id="password1" required="true"
+                    <p:password value="#{altaUsuario.usuario.password}" id="password1" required="false"
                                     feedback="true" match="password2" promptLabel="Introduzca contraseña"
                                     strongLabel="Clave muy segura" weakLabel="Clave insegura"
-                                    goodLabel="Clave segura" requiredMessage="Contraseña obligatoria" placeholder="Introduzca un"/>
+                                    goodLabel="Clave segura" placeholder="Introduzca un"/>
                         
                         
                         <p:outputLabel value="Repita contraseña:" for="@next"/>
-                        <p:password id="password2" required="true" requiredMessage="Obligatorio introducir contraseña"/>
+                        <p:password id="password2" required="fasle"/>
                         
                         
                 </h:panelGrid>    
